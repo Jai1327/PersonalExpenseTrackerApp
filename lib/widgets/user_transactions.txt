@@ -1,0 +1,55 @@
+// this file is not needed anymore
+import 'package:flutter/material.dart';
+
+import '../models/transaction.dart';
+import 'package:expense/widgets/new_transaction.dart';
+import 'package:expense/widgets/transaction_list.dart';
+
+class UserTransactions extends StatefulWidget {
+  const UserTransactions({Key? key}) : super(key: key);
+
+  @override
+  State<UserTransactions> createState() => _UserTransactionsState();
+}
+
+class _UserTransactionsState extends State<UserTransactions> {
+  final List<Transaction> _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Dummy Transaction',
+      amount: 1000,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Psuedo Transaction',
+      amount: 500,
+      date: DateTime.now(),
+    ),
+  ];
+  int i = 2;
+
+  void _addTransaction(String note, double amt) {
+    // i++;
+    // var id = 't' + i.toString();
+    final newTX = new Transaction(
+        id: DateTime.now().toString(),
+        title: note,
+        amount: amt,
+        date: DateTime.now());
+
+    setState(() {
+      _transactions.add(newTX);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        NewTransaction(_addTransaction),
+        TransactionList(_transactions),
+      ],
+    );
+  }
+}
